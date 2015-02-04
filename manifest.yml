@@ -1,0 +1,10 @@
+---
+applications:
+- name: morphing
+  memory: 64M
+  instances: 1
+  host: morphing
+  domain: sdp.asideas.de
+  buildpack: https://github.com/brotbert/nginx-buildpack.git
+
+
