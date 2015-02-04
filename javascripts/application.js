@@ -640,11 +640,7 @@ function hsvToRgb(h, s, v){
     }
     with (local || {}) {
       return "<button data-action=\"" + html_escape('addImage') + "\">" + 
-  "<div class=\"icon image\"><i class=\"fa fa-plus\"></i></div>Add image</button>" + 
-  "<button data-action=\"" + html_escape('editBlendFunction') + "\">" + 
-  "<div class=\"icon editFunction\"><i class=\"fa fa-retweet\"></i></div>Blend function</button>" + 
-  "<button data-action=\"" + html_escape('editFinalTouchFunction') + "\">" + 
-  "<div class=\"icon editFunction\"><i class=\"fa fa-wrench\"></i></div>Final touch function</button>" + 
+  "<div class=\"icon image\"><i class=\"fa fa-plus\"></i></div>Add image</button>" +
   "<button data-action=\"" + html_escape('export') + "\">" + 
   "<div class=\"icon export\"><i class=\"fa fa-check\"></i></div>Export code</button>"
     }
