@@ -91,6 +91,7 @@ b,c){var d;d=b&&b.hasOwnProperty("constructor")?b.constructor:function(){a.apply
  * @return  Array           The HSL representation
  */
 
+customRet = " ";
 function rgbToHsl(r, g, b){
     r /= 255, g /= 255, b /= 255;
     var max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -355,6 +356,7 @@ function hsvToRgb(h, s, v){
       this.setDefaultColor = __bind(this.setDefaultColor, this);
 
       this.initialize = __bind(this.initialize, this);
+
       this.morpher = new Morpher();
       this.morpher.on('change image:add image:remove point:add point:remove triangle:add triangle:remove', this.morpherChange);
       this.images = new Gui.Collections.Images();
@@ -435,14 +437,13 @@ function hsvToRgb(h, s, v){
 		var imagesobj = json[key];
 		for (var src in imagesobj) {
 		  if(imagesobj[src].src){
-		   	console.log(imagesobj[src].src);
 
-		   	imagesobj[src].src = "http://www.welt.de/bin/TST-" + imagesobj[src].src;
+		   	imagesobj[src].src = "http://www.welt.de/bin/TST-" + imagesobj[src].src + ".jpg";
 		  }
 		}      
 	   }
 
-      var customRet = "<script src='http://morphing.sdp.asideas.de/javascripts/morpher/morpher.js'></script><style>.demo#demo1{padding-right:25px}</style><div class='demo' id='demo1'><div class='preview'><div class='controls'><button data-action='reset' title='Reset'><div class='reset icon'>Reset</div></button><button data-action='play' title='Play'><div class='play icon'>Play</div></button></div></div><script type='text/javascript'>$('#demo1').each(function() {var json = " + JSON.stringify(json) + ";var morpher = new Morpher(json);$(this).find('.preview').prepend(morpher.canvas);$(this).find('button').click(function() {morpher.set([1, 0]);if($(this).data('action') == 'play') {morpher.animate([0, 1], 2000);}});$(this).find('input').change(function() {var v = $(this).val()*1;morpher.set([1-v, v]);})})</script></div>";
+      customRet = "<script src='http://morphing.sdp.asideas.de/javascripts/morpher/morpher.js'></script><style>.demo#demo1{padding-right:25px}</style><div class='demo' id='demo1'><div class='preview'><div class='controls'><button data-action='reset' title='Reset'><div class='reset icon'>Reset</div></button><button data-action='play' title='Play'><div class='play icon'>Play</div></button></div></div><script type='text/javascript'>$('#demo1').each(function() {var json = " + JSON.stringify(json) + ";var morpher = new Morpher(json);$(this).find('.preview').prepend(morpher.canvas);$(this).find('button').click(function() {morpher.set([1, 0]);if($(this).data('action') == 'play') {morpher.animate([0, 1], 2000);}});$(this).find('input').change(function() {var v = $(this).val()*1;morpher.set([1-v, v]);})})</script></div>";
       return customRet;
     };
 
@@ -605,9 +606,25 @@ function hsvToRgb(h, s, v){
         replace(/\"/g, "&quot;");
     }
     with (local || {}) {
-      return "<textarea class=\"code\">" + 
-  code + 
-  "</textarea>"
+    	return "<h1>Copied to Clipboard!</h1>"
+  //     return "<textarea class=\"code\">" + 
+  // code + 
+  // "</textarea>"
+    }
+  };
+}).call(this);
+(function() {
+  this.JST || (this.JST = {});
+  this.JST["templates/popups/generateCode"] = function(local) { 
+    function html_escape(text) {
+      return (text + "").
+        replace(/&/g, "&amp;").
+        replace(/</g, "&lt;").
+        replace(/>/g, "&gt;").
+        replace(/\"/g, "&quot;");
+    }
+    with (local || {}) {
+      return "<h1>Code generated!</h1><p>Press \"Export code\" to copy the code snippet to clipboard!</p>"
     }
   };
 }).call(this);
@@ -641,7 +658,9 @@ function hsvToRgb(h, s, v){
     with (local || {}) {
       return "<button data-action=\"" + html_escape('addImage') + "\">" + 
   "<div class=\"icon image\"><i class=\"fa fa-plus\"></i></div>Add image</button>" +
-  "<button data-action=\"" + html_escape('export') + "\">" + 
+  "<button data-action=\"" + html_escape('generateCode') + "\">" + 
+  "<div class=\"icon export\"><i class=\"fa fa-spinner\"></i></div>Generate code</button>" +
+  "<button id=\"export-button\" data-action=\"" + html_escape('export') + "\">" + 
   "<div class=\"icon export\"><i class=\"fa fa-check\"></i></div>Export code</button>"
     }
   };
@@ -1702,6 +1721,8 @@ function hsvToRgb(h, s, v){
 
       this["export"] = __bind(this["export"], this);
 
+      this["generateCode"] = __bind(this["generateCode"], this);
+
       this.remove = __bind(this.remove, this);
 
       this.hide = __bind(this.hide, this);
@@ -1711,6 +1732,7 @@ function hsvToRgb(h, s, v){
       this.save = __bind(this.save, this);
 
       this.initialize = __bind(this.initialize, this);
+
       return Project.__super__.constructor.apply(this, arguments);
     }
 
@@ -1776,7 +1798,27 @@ function hsvToRgb(h, s, v){
       popup = Gui.Views.Popup.show("templates/popups/code", {
         code: this.model.getCode()
       });
+
+      setTimeout(function(){
+	  	$(".close.icon").trigger("click");
+	  }, 1000);
+
       return popup.$el.find('textarea.code').focus().select();
+    };
+
+    Project.prototype["generateCode"] = function() {
+      var codeRet = this.model.getCode();
+
+      $("#export-button").zclip({
+		path:'javascripts/ZeroClipboard.swf',
+		copy:this.model.getCode()
+	  });
+
+	  setTimeout(function(){
+	  	$(".close.icon").trigger("click");
+	  }, 3000);
+
+	  return Gui.Views.Popup.show('templates/popups/generateCode');
     };
 
     Project.prototype.editBlendFunction = function() {
@@ -1928,3 +1970,4 @@ function hsvToRgb(h, s, v){
   });
 
 }).call(this);
+
