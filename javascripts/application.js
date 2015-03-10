@@ -443,7 +443,7 @@ function hsvToRgb(h, s, v){
 		}      
 	   }
 
-      customRet = "<script src='http://morphing.sdp.asideas.de/javascripts/morpher/morpher.js'></script><style> .preview { position: relative; border: 1px solid #d9d9d9; } .controls { position: absolute; bottom: 0; left: 0; width: 320px; height: 35px; background-color: #f4f4f4; } .controls .button { display: inline-block; padding-left: 40px; cursor: pointer; color: #aeaeae; padding-top: 9px; } .button .border { border-bottom: 1px solid #aeaeae; padding-top: 2px; margin-bottom: 5px; } canvas { max-width: 100%; }</style><div class='demo prefix_1'> <div class='preview'> <div class='controls'> <a data-action='reset' class='button' title='Reset'> Zur&uuml;cksetzen <div class='border'></div> </a> <a data-action='play' class='button' title='Play'> Animation starten <div class='border'></div> </a> </div> </div><script type='text/javascript'>$('.demo').each(function() {var wonPref = $('html').hasClass('www') ? 'http://www.' : 'http://m.'; var json = " + JSON.stringify(json) + "; for (var i=0; i<json.images.length; i++) { var imgUrl = json.images[i].src; json.images[i].src = wonPref + imgUrl;console.log(json.images[i].src);}var morpher = new Morpher(json);$(this).find('.preview').prepend(morpher.canvas);$(this).find('.button').click(function() {morpher.set([1, 0]);if($(this).data('action') == 'play') {morpher.animate([0, 1], 2000);}});$(this).find('input').change(function() {var v = $(this).val()*1;morpher.set([1-v, v]);})})</script></div>";
+      customRet = "<script src='http://morphing.sdp.asideas.de/javascripts/morpher/morpher.js'></script><style> .preview { position: relative; border: 1px solid #d9d9d9; } .controls { position: absolute; bottom: 0; left: 0; width: 320px; height: 35px; background-color: #f4f4f4; } .controls .button { display: inline-block; padding-left: 40px; cursor: pointer; color: #aeaeae; padding-top: 9px; } .button .border { border-bottom: 1px solid #aeaeae; padding-top: 2px; margin-bottom: 5px; } canvas { max-width: 100%; }</style><div class='demo prefix_1'> <div class='preview'> <div class='controls'> <a data-action='reset' class='button' title='Reset'> Zur&uuml;cksetzen <div class='border'></div> </a> <a data-action='play' class='button' title='Play'> Animation starten <div class='border'></div> </a> </div> </div><script type='text/javascript'>$('.demo').each(function() {var wonPref = $('html').hasClass('www') ? 'http://www.' : 'http://m.'; var json = " + JSON.stringify(json) + "; for (var i=0; i<json.images.length; i++) { var imgUrl = json.images[i].src; json.images[i].src = wonPref + imgUrl;}var morpher = new Morpher(json);$(this).find('.preview').prepend(morpher.canvas);$(this).find('.button').click(function() {morpher.set([1, 0]);if($(this).data('action') == 'play') {morpher.animate([0, 1], 2000);}});$(this).find('input').change(function() {var v = $(this).val()*1;morpher.set([1-v, v]);})})</script></div>";
       return customRet;
     };
 
@@ -968,7 +968,9 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.openFile = function() {
-      return this.$('input[name=file]').click();
+      // return this.$('input[name=file]').click();
+
+      window.location.reload();
     };
 
     Image.prototype.move = function() {
@@ -1188,9 +1190,11 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.renderFile = function() {
-      if (this.model.get('file') != null) {
-        return this.img.src = this.model.get('file');
-      }
+      // if (this.model.get('file') != null) {
+      //   return this.img.src = this.model.get('file');
+      // }
+
+      return this.img.src = "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
     };
 
     Image.prototype.render = function() {
@@ -1844,9 +1848,9 @@ function hsvToRgb(h, s, v){
       imageView.on('select', this.selectHandler);
       this.$el.append(imageView.render().el);
       this.arrangeImages();
-      if (image.isNew()) {
-        return imageView.openFile();
-      }
+      // if (image.isNew()) {
+      //   return imageView.openFile();
+      // }
     };
 
     Project.prototype.addAllImageViews = function() {
