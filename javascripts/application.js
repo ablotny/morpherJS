@@ -438,12 +438,12 @@ function hsvToRgb(h, s, v){
 		for (var src in imagesobj) {
 		  if(imagesobj[src].src){
 
-		   	imagesobj[src].src = "http://www.welt.de/bin/TST-" + imagesobj[src].src + ".jpg";
+		   	imagesobj[src].src = imagesobj[src].src + ".jpg";
 		  }
 		}      
 	   }
 
-      customRet = "<script src='http://morphing.sdp.asideas.de/javascripts/morpher/morpher.js'></script><style>.demo#demo1{padding-right:25px}</style><div class='demo' id='demo1'><div class='preview'><div class='controls'><button data-action='reset' title='Reset'><div class='reset icon'>Reset</div></button><button data-action='play' title='Play'><div class='play icon'>Play</div></button></div></div><script type='text/javascript'>$('#demo1').each(function() {var json = " + JSON.stringify(json) + ";var morpher = new Morpher(json);$(this).find('.preview').prepend(morpher.canvas);$(this).find('button').click(function() {morpher.set([1, 0]);if($(this).data('action') == 'play') {morpher.animate([0, 1], 2000);}});$(this).find('input').change(function() {var v = $(this).val()*1;morpher.set([1-v, v]);})})</script></div>";
+      customRet = "<script src='http://morphing.sdp.asideas.de/javascripts/morpher/morpher.js'></script><style> .preview { position: relative; border: 1px solid #d9d9d9; } .controls { position: absolute; bottom: 0; left: 0; width: 320px; height: 35px; background-color: #f4f4f4; } .controls .button { display: inline-block; padding-left: 40px; cursor: pointer; color: #aeaeae; padding-top: 9px; } .button .border { border-bottom: 1px solid #aeaeae; padding-top: 2px; margin-bottom: 5px; } canvas { max-width: 100%; }</style><div class='demo prefix_1'> <div class='preview'> <div class='controls'> <a data-action='reset' class='button' title='Reset'> Zurücksetzen <div class='border'></div> </a> <a data-action='play' class='button' title='Play'> Animation starten <div class='border'></div> </a> </div> </div><script type='text/javascript'>$('.demo').each(function() {var wonPref = $('html').hasClass('www') ? 'http://www.' : 'http://m.'; var json = " + JSON.stringify(json) + "; for (var i=0; i<json.images.length; i++) { var imgUrl = json.images[i].src; json.images[i].src = wonPref + imgUrl;}var morpher = new Morpher(json);$(this).find('.preview').prepend(morpher.canvas);$(this).find('button').click(function() {morpher.set([1, 0]);if($(this).data('action') == 'play') {morpher.animate([0, 1], 2000);}});$(this).find('input').change(function() {var v = $(this).val()*1;morpher.set([1-v, v]);})})</script></div>";
       return customRet;
     };
 
@@ -547,7 +547,7 @@ function hsvToRgb(h, s, v){
   "<div class=\"icon delete\"><i class=\"fa fa-trash-o\"></i></div></button>" +
   "<input type=\"" + html_escape('range') + "\" name=\"" + html_escape('targetWeight') + "\" min=\"0\" max=\"1\" step=\"0.01\" />" +
   "<input type=\"" + html_escape('file') + "\" name=\"" + html_escape('file') + "\" />" +
-  "<input type=\"" + html_escape('text') + "\" name=\"" + html_escape('url') + "\" />" + 
+  "<input type=\"" + html_escape('text') + "\" name=\"" + html_escape('url') + "\" placeholder=\"" + html_escape('Esc. ID') + "\"/>" + 
   "</div>"
     }
   };
