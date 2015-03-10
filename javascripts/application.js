@@ -968,9 +968,10 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.openFile = function() {
-      // return this.$('input[name=file]').click();
+      return this.$('input[name=file]').click();
 
-      window.location.reload();
+      // window.location.reload();
+      // return "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
     };
 
     Image.prototype.move = function() {
@@ -1190,11 +1191,13 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.renderFile = function() {
-      // if (this.model.get('file') != null) {
-      //   return this.img.src = this.model.get('file');
-      // }
+      if (this.model.get('file') != null) {
+        return this.img.src = this.model.get('file');
+      }
 
-      return this.img.src = "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+      // if (this.model.get('file') != null) {
+      //   return this.img.src = "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+      // }
     };
 
     Image.prototype.render = function() {
@@ -1848,9 +1851,9 @@ function hsvToRgb(h, s, v){
       imageView.on('select', this.selectHandler);
       this.$el.append(imageView.render().el);
       this.arrangeImages();
-      // if (image.isNew()) {
-      //   return imageView.openFile();
-      // }
+      if (image.isNew()) {
+        return imageView.openFile();
+      }
     };
 
     Project.prototype.addAllImageViews = function() {
