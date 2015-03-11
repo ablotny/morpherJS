@@ -968,10 +968,11 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.openFile = function() {
-      return this.$('input[name=file]').click();
+      // return this.$('input[name=file]').click();
 
-      // window.location.reload();
-      // return "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+      return "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+
+      // hidayat
     };
 
     Image.prototype.move = function() {
@@ -1191,13 +1192,14 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.renderFile = function() {
-      if (this.model.get('file') != null) {
-        return this.img.src = this.model.get('file');
-      }
-
       // if (this.model.get('file') != null) {
-      //   return this.img.src = "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+      //   return this.img.src = this.model.get('file');
       // }
+
+     	return this.img.src = "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+
+
+      // hidayat
     };
 
     Image.prototype.render = function() {
@@ -1215,8 +1217,14 @@ function hsvToRgb(h, s, v){
     };
 
     Image.prototype.draw = function() {
+
+    	var testimg = new MorpherJS.Image();
+    	testimg.el.src = "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
+    	this.img = testimg.el;
+
       var triangle, x0, y0, _i, _len, _ref, _results;
-      this.canvas.width = this.canvas.width;
+      this.canvas.width = this.img.width;
+      this.canvas.height = this.img.height;
       x0 = this.model.morpherImage.getX();
       y0 = this.model.morpherImage.getY();
       this.ctx.drawImage(this.img, x0, y0);
@@ -1239,6 +1247,8 @@ function hsvToRgb(h, s, v){
         _results.push(this.ctx.stroke());
       }
       return _results;
+
+      // hidayat
     };
 
     Image.prototype.buildPattern = function(w, h) {
