@@ -970,6 +970,7 @@ function hsvToRgb(h, s, v){
     Image.prototype.openFile = function() {
       // return this.$('input[name=file]').click();
 
+      location.reload();
       return "http://www.welt.de/bin/tst-" + this.model.get('url') + ".jpg";
 
       // hidayat
